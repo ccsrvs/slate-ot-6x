@@ -1,21 +1,21 @@
 import {
-  Path,
-  Node,
-  Element,
-  Text,
-  Operation,
   Editor,
-  InsertTextOperation,
-  RemoveTextOperation,
   InsertNodeOperation,
-  RemoveNodeOperation,
-  SplitNodeOperation,
+  InsertTextOperation,
   MergeNodeOperation,
   MoveNodeOperation,
+  Node,
+  Operation,
+  Path,
+  RemoveNodeOperation,
+  RemoveTextOperation,
   SetNodeOperation,
+  SplitNodeOperation,
+  Text
 } from 'slate';
 
-import { slateType } from '../src/SlateType';
+import {slateType} from '../src/SlateType';
+import {CustomDescendent, CustomNode} from "../src/types";
 
 export const makeOp = {
   insertText: (
@@ -44,7 +44,7 @@ export const makeOp = {
     };
   },
 
-  insertNode: (path: Path, node: Node): InsertNodeOperation => {
+  insertNode: (path: Path, node: CustomNode): InsertNodeOperation => {
     return {
       type: 'insert_node',
       path,
@@ -52,7 +52,7 @@ export const makeOp = {
     };
   },
 
-  removeNode: (path: Path, node: Node): RemoveNodeOperation => {
+  removeNode: (path: Path, node: CustomNode): RemoveNodeOperation => {
     return {
       type: 'remove_node',
       path,
@@ -60,13 +60,12 @@ export const makeOp = {
     };
   },
 
-  splitNode: (path: Path, position: number): SplitNodeOperation => {
+  splitNode: (path: Path, position: number, properties?: Partial<Node>): SplitNodeOperation => {
     return {
       type: 'split_node',
       path,
       position,
-      target: null,
-      properties: {},
+      properties: properties || {},
     };
   },
 
@@ -75,7 +74,6 @@ export const makeOp = {
       type: 'merge_node',
       path,
       position,
-      target: null,
       properties: {},
     };
   },
@@ -145,19 +143,19 @@ const checkOp = (snapshot: Editor, op: Operation) => {
   }
 };
 
-export const initialDoc: Element = {
+export const initialDoc: CustomDescendent = {
   children: [
     {
       type: 'Paragraph',
-      children: [{ text: 'AB', italic: true }, { text: 'CD' }, { text: 'EF' }],
+      children: [{text: 'AB', italic: true}, {text: 'CD'}, {text: 'EF'}],
     },
     {
       type: 'NumberedList',
-      children: [{ text: 'GH', bold: true }, { text: 'IJ' }, { text: 'KL' }],
+      children: [{text: 'GH', bold: true}, {text: 'IJ'}, {text: 'KL'}],
     },
     {
       type: 'BulletedList',
-      children: [{ text: 'MN' }, { text: 'OPQ' }, { text: 'RST' }],
+      children: [{text: 'MN'}, {text: 'OPQ'}, {text: 'RST'}],
     },
-  ],
+  ]
 };

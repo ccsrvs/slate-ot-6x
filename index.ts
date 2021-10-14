@@ -1,3 +1,3 @@
-import { slateType } from './src/SlateType';
+import {slateType} from './src/SlateType';
 
-export { slateType };
+export {slateType};

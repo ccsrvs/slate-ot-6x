@@ -193,7 +193,6 @@ export const generateRandomSplitNodeOp = (snapshot): Operation | null => {
         type: 'split_node',
         path: randomPath,
         position,
-        target: null,
         properties: {},
       }
     : null;
@@ -228,7 +227,6 @@ export const generateRandomMergeNodeOp = (snapshot): Operation | null => {
       type: 'merge_node',
       path: randomPath,
       position: prev.text.length,
-      target: null,
       properties,
     };
   }
@@ -238,7 +236,6 @@ export const generateRandomMergeNodeOp = (snapshot): Operation | null => {
       type: 'merge_node',
       path: randomPath,
       position: prev.children.length,
-      target: null,
       properties,
     };
   }

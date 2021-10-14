@@ -1,6 +1,6 @@
-import { slateType } from '../src/SlateType';
-import { createEditor, Editor, Operation, Transforms } from 'slate';
-import { v4 as uuid } from 'uuid';
+import {slateType} from '../src/SlateType';
+import {createEditor, Editor, Operation, Transforms} from 'slate';
+import {v4 as uuid} from 'uuid';
 // const _ = require('lodash');
 
 const sharedb = require('sharedb/lib/client');
@@ -39,14 +39,14 @@ doc.subscribe((err: any) => {
   e.apply({
     type: 'insert_node',
     path: [0],
-    node: { children: [{ text: 'a quick brown fox' }] },
+    node: {children: [{text: 'a quick brown fox'}]},
   });
 });
 
 e.onChange = () => {
   e.operations.forEach((o: Operation) => {
     if (o.type !== 'set_selection') {
-      doc.submitOp(o, { source: clientId });
+      doc.submitOp(o, {source: clientId});
     }
   });
 };

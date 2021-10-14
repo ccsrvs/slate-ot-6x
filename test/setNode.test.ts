@@ -12,10 +12,12 @@ describe('left side to setNode, right side to:', () => {
   });
 
   afterEach(() => {
-    const [op12, op21] = xTransformMxN([op1], [op2], 'left');
+    const [op12, op21] = xTransformMxN([op1], [op2], "left");
 
-    doc1 = applyOp(applyOp(doc1, op1), op21);
-    doc2 = applyOp(applyOp(doc2, op2), op12);
+    let doc1snapshot = applyOp(doc1, op1);
+    doc1 = applyOp(doc1snapshot, op21);
+    let doc2snapshot = applyOp(doc2, op2);
+    doc2 = applyOp(doc2snapshot, op12);
 
     expect(doc1).toStrictEqual(doc2);
   });
@@ -45,8 +47,8 @@ describe('left side to setNode, right side to:', () => {
 
   describe('splitNode', () => {
     test('at setOp.path', () => {
-      op1 = makeOp.setNode([1, 0], { italic: true });
-      op2 = makeOp.splitNode([1, 0], 1);
+      op1 = makeOp.setNode([1, 0], {italic: true});
+      op2 = makeOp.splitNode([1, 0], 1, {bold: false});
     });
   });
 

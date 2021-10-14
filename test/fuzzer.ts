@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 import { slateType } from '../src/SlateType';
-import { createEditor, Element, Editor } from 'slate';
+import { createEditor, Editor } from 'slate';
 import * as _ from 'lodash';
 import { generateAndApplyRandomOp } from './op-generator';
 import * as fuzzer from 'ot-fuzzer';
+import {CustomDescendent} from "../src/types";
 
-const testDoc: Element = {
+const testDoc: CustomDescendent = {
   children: [
     {
       type: 'paragraph',
@@ -20,7 +21,7 @@ const testDoc: Element = {
 /**
  * Overload slateType create function for easier random op generation
  */
-slateType.create = function (init: Element) {
+slateType.create = function (init: CustomDescendent) {
   console.log('called create in SlateType');
   init = _.cloneDeep(testDoc);
   const e = createEditor();

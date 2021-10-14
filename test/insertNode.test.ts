@@ -59,7 +59,12 @@ describe('left side to insertNode, right side to:', () => {
 
   describe('splitNode', () => {
     test('at insertOp.path', () => {
-      op1 = makeOp.insertNode([1], branch);
+      op1 = makeOp.insertNode([1], {...branch, type: "Paragraph"});
+      op2 = makeOp.splitNode([1], 1);
+    });
+
+    test('at insertOp.path', () => {
+      op1 = makeOp.insertNode([1], {...branch, type: "Paragraph"});
       op2 = makeOp.splitNode([1], 1);
     });
 

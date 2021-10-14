@@ -1,15 +1,16 @@
-import { Operation, Transforms, Element, createEditor, Editor } from 'slate';
-import { OT } from './OT';
+import {Operation, createEditor, Editor, BaseEditor, Transforms, Node, Text} from 'slate';
+import {OT} from './OT';
+import {CustomDescendent} from "./types";
 
 const slateType = {
   name: 'slate-ot-type',
 
   uri: 'http://sharejs.org/types/slate-ot-type',
 
-  create(init: Element): Editor {
+  create(init: CustomDescendent): Editor {
     const e = createEditor();
     e.children = init.children;
-    return <Editor>init;
+    return <BaseEditor>init;
   },
 
   apply(snapshot: Editor, op: Operation[] | Operation) {
@@ -29,6 +30,18 @@ const slateType = {
           }
         }
       } else {
+        if (o.type === "split_node" && o.path.length > 0) {
+          let node = Node.get(snapshot, o.path)
+
+          if (Text.isText(node)) {
+            let leaf = {...node, text: undefined};
+            // delete leaf["text"];
+            o.properties = {
+              ...leaf,
+              // ...o.properties
+            }
+          }
+        }
         Transforms.transform(snapshot, o);
       }
     });
@@ -147,4 +160,4 @@ const doTransform = (
   }
 };
 
-export { slateType, xTransformMxN };
+export {slateType, xTransformMxN};
