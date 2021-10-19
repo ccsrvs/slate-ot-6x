@@ -86,11 +86,11 @@ export const makeOp = {
     };
   },
 
-  setNode: (path: Path, newProperties: Partial<Node>): SetNodeOperation => {
+  setNode: (path: Path, newProperties: Partial<Node>, properties?: Partial<Node>): SetNodeOperation => {
     return {
       type: 'set_node',
       path,
-      properties: {},
+      properties: properties || {},
       newProperties,
     };
   },
